@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="sr">
+<head>
+  <meta charset="UTF-8">
+  <title>Prijava za domaći zadatak 3: (re)Kreacija</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #e9f0f7;
+      margin: 0;
+      padding: 40px 0;
+      display: flex;
+      justify-content: center;
+    }
+    .container {
+      background-color: #fff;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      max-width: 1000px;
+      width: 90%;
+    }
+    h1 {
+      text-align: center;
+      color: #004080;
+      margin-top: 0;
+    }
+    .istaknuto {
+      color: #007acc;
+    }
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 20px;
+      margin-top: 30px;
+    }
+    .image-card {
+      border: 1px solid #ccc;
+      border-radius: 10px;
+      padding: 10px;
+      background-color: #fdfdfd;
+      text-align: center;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    }
+    .image-card img {
+      width: 100%;
+      height: auto;
+      border-radius: 6px;
+    }
+    .title {
+      margin-top: 10px;
+      font-weight: bold;
+    }
+    .availability {
+      margin: 5px 0;
+      font-size: 0.9em;
+      color: #555;
+    }
+    .select-button {
+      padding: 8px 16px;
+      background-color: #007acc;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 0.9em;
+    }
+    .select-button:disabled {
+      background-color: #888;
+      cursor: not-allowed;
+    }
+    
+/* Modalni prozor */
+.modal {
+  position: fixed;
+  z-index: 10;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0,0,0,0.4);
+}
+.modal-content {
+  background-color: #fff;
+  margin: 10% auto;
+  padding: 20px;
+  border-radius: 10px;
+  max-width: 400px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+}
+.close-button {
+  float: right;
+  font-size: 24px;
+  cursor: pointer;
+}
+.modal-content input[type="text"],
+.modal-content input[type="email"] {
+  width: 100%;
+  padding: 8px;
+  margin-top: 8px;
+  margin-bottom: 12px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+.modal-content button[type="submit"] {
+  background-color: #007acc;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Prijava za domaći zadatak 3: <span class="istaknuto">(re)Kreacija</span></h1>
+    <div class="gallery">
+      
+    <div class="image-card">
+        <img src="slike/30-Ljubavnici_u_predelu_Jovan_Bijelic.jpg" alt="Ljubavnici u predelu - Jovan Bijelić">
+        <div class="title">Ljubavnici u predelu - Jovan Bijelić</div>
+        <div class="availability" data-filename="30-Ljubavnici_u_predelu_Jovan_Bijelic.jpg">Preostalo: 3</div>
+        <button class="select-button" data-filename="30-Ljubavnici_u_predelu_Jovan_Bijelic.jpg">Izaberi</button>
+    </div>
+    
+
+    <div class="image-card">
+        <img src="slike/29-Enterijer_sa_gipsanom_glavom_Marko_Celebonovic.jpg" alt="Enterijer sa gipsanom glavom - Marko Čelebonović">
+        <div class="title">Enterijer sa gipsanom glavom - Marko Čelebonović</div>
+        <div class="availability" data-filename="29-Enterijer_sa_gipsanom_glavom_Marko_Celebonovic.jpg">Preostalo: 3</div>
+        <button class="select-button" data-filename="29-Enterijer_sa_gipsanom_glavom_Marko_Celebonovic.jpg">Izaberi</button>
+    </div>
+    
+
+    <div class="image-card">
+        <img src="slike/28-Mladi_par_na_klupi_Sava_Sumanovic.jpg" alt="Mladi par na klupi - Sava Šumanović">
+        <div class="title">Mladi par na klupi - Sava Šumanović</div>
+        <div class="availability" data-filename="28-Mladi_par_na_klupi_Sava_Sumanovic.jpg">Preostalo: 3</div>
+        <button class="select-button" data-filename="28-Mladi_par_na_klupi_Sava_Sumanovic.jpg">Izaberi</button>
+    </div>
+    
+
+    <div class="image-card">
+        <img src="slike/27-Zena_sa_slamnim_sesirom_Stojan_Aralica.jpg" alt="Žena sa slamnim šeširom - Stojan Aralica ">
+        <div class="title">Žena sa slamnim šeširom - Stojan Aralica </div>
+        <div class="availability" data-filename="27-Zena_sa_slamnim_sesirom_Stojan_Aralica.jpg">Preostalo: 3</div>
+        <button class="select-button" data-filename="27-Zena_sa_slamnim_sesirom_Stojan_Aralica.jpg">Izaberi</button>
+    </div>
+    
+
+    <div class="image-card">
+        <img src="slike/26-Mladic_sa_knjigom_Petar_Dobrovic.jpg" alt="Mladić sa knjigom - Petar Dobrović ">
+        <div class="title">Mladić sa knjigom - Petar Dobrović </div>
+        <div class="availability" data-filename="26-Mladic_sa_knjigom_Petar_Dobrovic.jpg">Preostalo: 3</div>
+        <button class="select-button" data-filename="26-Mladic_sa_knjigom_Petar_Dobrovic.jpg">Izaberi</button>
+    </div>
+    
+
+    <div class="image-card">
+        <img src="slike/25-No_pasaran_Dorde_Andrejevic_Kun.jpg" alt="No pasaran - Đorđe Andrejević Kun ">
+        <div class="title">No pasaran - Đorđe Andrejević Kun </div>
+        <div class="availability" data-filename="25-No_pasaran_Dorde_Andrejevic_Kun.jpg">Preostalo: 3</div>
+        <button class="select-button" data-filename="25-No_pasaran_Dorde_Andrejevic_Kun.jpg">Izaberi</button>
+    </div>
+    
+
+    <div class="image-card">
+        <img src="slike/24_Zena_sa_turbanom_Marko_Celebonovic.jpg" alt="Žena sa turbanom - Marko Čelebonović">
+        <div class="title">Žena sa turbanom - Marko Čelebonović</div>
+        <div class="availability" data-filename="24_Zena_sa_turbanom_Marko_Celebonovic.jpg">Preostalo: 3</div>
+        <button class="select-button" data-filename="24_Zena_sa_turbanom_Marko_Celebonovic.jpg">Izaberi</button>
+    </div>
+    
+
+    <div class="image-card">
+        <img src="slike/23-Kopaci_Ignjat_Job.jpg" alt="Kopači - Ignjat Job ">
+        <div class="title">Kopači - Ignjat Job </div>
+        <div class="availability" data-filename="23-Kopaci_Ignjat_Job.jpg">Preostalo: 3</div>
+        <button class="select-button" data-filename="23-Kopaci_Ignjat_Job.jpg">Izaberi</button>
+    </div>
+    
+
+    <div class="image-card">
+        <img src="slike/22-Porodica_Marko_Celebonovic.jpg" alt="Porodica - Marko Čelebonović">
+        <div class="title">Porodica - Marko Čelebonović</div>
+        <div class="availability" data-filename="22-Porodica_Marko_Celebonovic.jpg">Preostalo: 3</div>
+        <button class="select-button" data-filename="22-Porodica_Marko_Celebonovic.jpg">Izaberi</button>
+    </div>
+    
+
+    <div class="image-card">
+        <img src="slike/21-Mrtve_vode_Krsto_Hegedusic.jpg" alt="Mrtve vode Krsto Hegedušić">
+        <div class="title">Mrtve vode Krsto Hegedušić</div>
+        <div class="availability" data-filename="21-Mrtve_vode_Krsto_Hegedusic.jpg">Preostalo: 3</div>
+        <button class="select-button" data-filename="21-Mrtve_vode_Krsto_Hegedusic.jpg">Izaberi</button>
+    </div>
+    
+
+    <div class="image-card">
+        <img src="slike/01-Hermelina_brain_Olja_Ivanjicki.jpg" alt="Hermelina brain - Olja Ivanjicki ">
+        <div class="title">Hermelina brain - Olja Ivanjicki </div>
+        <div class="availability" data-filename="01-Hermelina_brain_Olja_Ivanjicki.jpg">Preostalo: 3</div>
+        <button class="select-button" data-filename="01-Hermelina_brain_Olja_Ivanjicki.jpg">Izaberi</button>
+    </div>
+    
+
+    <div class="image-card">
+        <img src="slike/03-Ciganka_sa_crvenim_salom_Nadezda_Petrovic.jpg" alt="Ciganka sa crvenim šalom - Nadežda Petrović">
+        <div class="title">Ciganka sa crvenim šalom - Nadežda Petrović</div>
+        <div class="availability" data-filename="03-Ciganka_sa_crvenim_salom_Nadezda_Petrovic.jpg">Preostalo: 3</div>
+        <button class="select-button" data-filename="03-Ciganka_sa_crvenim_salom_Nadezda_Petrovic.jpg">Izaberi</button>
+    </div>
+    
+
+    <div class="image-card">
+        <img src="slike/02-Portret_majke_Branko_Popovic.jpg" alt="Portret majke - Branko Popović">
+        <div class="title">Portret majke - Branko Popović</div>
+        <div class="availability" data-filename="02-Portret_majke_Branko_Popovic.jpg">Preostalo: 3</div>
+        <button class="select-button" data-filename="02-Portret_majke_Branko_Popovic.jpg">Izaberi</button>
+    </div>
+    
+
+    <div class="image-card">
+        <img src="slike/05-Devojcica_u_plavim_pantalonama_Marko_Celebonovic.jpg" alt="Devojćica u plavim pantalonama - Marko Čelebonović">
+        <div class="title">Devojćica u plavim pantalonama - Marko Čelebonović</div>
+        <div class="availability" data-filename="05-Devojcica_u_plavim_pantalonama_Marko_Celebonovic.jpg">Preostalo: 3</div>
+        <button class="select-button" data-filename="05-Devojcica_u_plavim_pantalonama_Marko_Celebonovic.jpg">Izaberi</button>
+    </div>
+    
+
+    <div class="image-card">
+        <img src="slike/04-Majka_Dorde_Andrejevic_Kun.jpg" alt="Majka - Đorde Andrejević Kun ">
+        <div class="title">Majka - Đorde Andrejević Kun </div>
+        <div class="availability" data-filename="04-Majka_Dorde_Andrejevic_Kun.jpg">Preostalo: 3</div>
+        <button class="select-button" data-filename="04-Majka_Dorde_Andrejevic_Kun.jpg">Izaberi</button>
+    </div>
+    
+
+    <div class="image-card">
+        <img src="slike/06-Jevandelist_Jovan_Milena_Pavlovic_Barili.jpg" alt="Jevanđelist Jovan - Milena Pavlović Barili ">
+        <div class="title">Jevanđelist Jovan - Milena Pavlović Barili </div>
+        <div class="availability" data-filename="06-Jevandelist_Jovan_Milena_Pavlovic_Barili.jpg">Preostalo: 3</div>
+        <button class="select-button" data-filename="06-Jevandelist_Jovan_Milena_Pavlovic_Barili.jpg">Izaberi</button>
+    </div>
+    
+
+    <div class="image-card">
+        <img src="slike/07-Portret_zene_u_crnini_Ignjat_Job.jpg" alt="Portret žene u crnini - Ignjat Job ">
+        <div class="title">Portret žene u crnini - Ignjat Job </div>
+        <div class="availability" data-filename="07-Portret_zene_u_crnini_Ignjat_Job.jpg">Preostalo: 3</div>
+        <button class="select-button" data-filename="07-Portret_zene_u_crnini_Ignjat_Job.jpg">Izaberi</button>
+    </div>
+    
+
+    <div class="image-card">
+        <img src="slike/08-Gospoda_Olga_Dobrovic_Petar_Dobrovic.jpg" alt="Gospođa Olga Dobrović - Petar Dobrović">
+        <div class="title">Gospođa Olga Dobrović - Petar Dobrović</div>
+        <div class="availability" data-filename="08-Gospoda_Olga_Dobrovic_Petar_Dobrovic.jpg">Preostalo: 3</div>
+        <button class="select-button" data-filename="08-Gospoda_Olga_Dobrovic_Petar_Dobrovic.jpg">Izaberi</button>
+    </div>
+    
+
+    <div class="image-card">
+        <img src="slike/11-Zena_sa_suncobranom_Nadezda_Petrovic.jpg" alt="Žena sa suncobranom - Nadežda Petrović">
+        <div class="title">Žena sa suncobranom - Nadežda Petrović</div>
+        <div class="availability" data-filename="11-Zena_sa_suncobranom_Nadezda_Petrovic.jpg">Preostalo: 3</div>
+        <button class="select-button" data-filename="11-Zena_sa_suncobranom_Nadezda_Petrovic.jpg">Izaberi</button>
+    </div>
+    
+
+    <div class="image-card">
+        <img src="slike/09-Monahinja_Milena_Pavlovic_Barili.jpg" alt="Monahinja - Milena Pavlović Barili">
+        <div class="title">Monahinja - Milena Pavlović Barili</div>
+        <div class="availability" data-filename="09-Monahinja_Milena_Pavlovic_Barili.jpg">Preostalo: 3</div>
+        <button class="select-button" data-filename="09-Monahinja_Milena_Pavlovic_Barili.jpg">Izaberi</button>
+    </div>
+    
+
+    <div class="image-card">
+        <img src="slike/10-Pastirica_Sava_Sumanovic.jpg" alt="Pastirica - Sava Šumanović">
+        <div class="title">Pastirica - Sava Šumanović</div>
+        <div class="availability" data-filename="10-Pastirica_Sava_Sumanovic.jpg">Preostalo: 3</div>
+        <button class="select-button" data-filename="10-Pastirica_Sava_Sumanovic.jpg">Izaberi</button>
+    </div>
+    
+
+    <div class="image-card">
+        <img src="slike/12-Supruga_Mani_Paja_Jovanovic.jpg" alt="Supruga Mani - Paja Jovanović">
+        <div class="title">Supruga Mani - Paja Jovanović</div>
+        <div class="availability" data-filename="12-Supruga_Mani_Paja_Jovanovic.jpg">Preostalo: 3</div>
+        <button class="select-button" data-filename="12-Supruga_Mani_Paja_Jovanovic.jpg">Izaberi</button>
+    </div>
+    
+
+    <div class="image-card">
+        <img src="slike/13-Mornar_na_molu_Sava_Sumanovic.jpg" alt="Mornar na molu - Sava Šumanović">
+        <div class="title">Mornar na molu - Sava Šumanović</div>
+        <div class="availability" data-filename="13-Mornar_na_molu_Sava_Sumanovic.jpg">Preostalo: 3</div>
+        <button class="select-button" data-filename="13-Mornar_na_molu_Sava_Sumanovic.jpg">Izaberi</button>
+    </div>
+    
+
+    <div class="image-card">
+        <img src="slike/14-Portret_Tomasa_Goselina_Milena_Pavlovic_Barili.jpg" alt="Portret Tomasa Goselina - Milena Pavlović Barili">
+        <div class="title">Portret Tomasa Goselina - Milena Pavlović Barili</div>
+        <div class="availability" data-filename="14-Portret_Tomasa_Goselina_Milena_Pavlovic_Barili.jpg">Preostalo: 3</div>
+        <button class="select-button" data-filename="14-Portret_Tomasa_Goselina_Milena_Pavlovic_Barili.jpg">Izaberi</button>
+    </div>
+    
+
+    <div class="image-card">
+        <img src="slike/18-Molitva_Ignjat_Job.jpg" alt="Molitva - Ignjat Job">
+        <div class="title">Molitva - Ignjat Job</div>
+        <div class="availability" data-filename="18-Molitva_Ignjat_Job.jpg">Preostalo: 3</div>
+        <button class="select-button" data-filename="18-Molitva_Ignjat_Job.jpg">Izaberi</button>
+    </div>
+    
+
+    <div class="image-card">
+        <img src="slike/16-U_celiji_Dorde_Andrejevic_Kun.jpg" alt="U ćeliji - Đorde Andrejević Kun ">
+        <div class="title">U ćeliji - Đorde Andrejević Kun </div>
+        <div class="availability" data-filename="16-U_celiji_Dorde_Andrejevic_Kun.jpg">Preostalo: 3</div>
+        <button class="select-button" data-filename="16-U_celiji_Dorde_Andrejevic_Kun.jpg">Izaberi</button>
+    </div>
+    
+
+    <div class="image-card">
+        <img src="slike/17-Tri_devojcice_u_igri_Sava_Sumanovic.jpg" alt="Tri devojčice u igri - Sava Šumanović">
+        <div class="title">Tri devojčice u igri - Sava Šumanović</div>
+        <div class="availability" data-filename="17-Tri_devojcice_u_igri_Sava_Sumanovic.jpg">Preostalo: 3</div>
+        <button class="select-button" data-filename="17-Tri_devojcice_u_igri_Sava_Sumanovic.jpg">Izaberi</button>
+    </div>
+    
+
+    <div class="image-card">
+        <img src="slike/20-Kosovka_devojka_Uros_Predic.jpg" alt="Kosovka devojka - Uroš Predić">
+        <div class="title">Kosovka devojka - Uroš Predić</div>
+        <div class="availability" data-filename="20-Kosovka_devojka_Uros_Predic.jpg">Preostalo: 3</div>
+        <button class="select-button" data-filename="20-Kosovka_devojka_Uros_Predic.jpg">Izaberi</button>
+    </div>
+    
+
+    <div class="image-card">
+        <img src="slike/19-Devojka_sa_knjigom_Jovan_Bijelic.jpg" alt="Devojka sa knjigom - Jovan Bijelić">
+        <div class="title">Devojka sa knjigom - Jovan Bijelić</div>
+        <div class="availability" data-filename="19-Devojka_sa_knjigom_Jovan_Bijelic.jpg">Preostalo: 3</div>
+        <button class="select-button" data-filename="19-Devojka_sa_knjigom_Jovan_Bijelic.jpg">Izaberi</button>
+    </div>
+    
+    </div>
+  </div>
+  
+<!-- Modalna forma -->
+<div id="modal" class="modal" style="display:none;">
+  <div class="modal-content">
+    <span class="close-button" onclick="closeModal()">&times;</span>
+    <h2>Unesi podatke</h2>
+    <form id="submit-form">
+      <label for="ime">Ime i prezime:</label>
+      <input type="text" id="ime" name="ime" required>
+
+      <label for="indeks">Broj indeksa:</label>
+      <input type="text" id="indeks" name="indeks" required>
+
+      <label for="imejl">Imejl (@gs.viser.edu.rs ili @viser.edu.rs):</label>
+      <input type="email" id="imejl" name="imejl" required>
+
+      <input type="hidden" id="slika" name="slika">
+
+      <div id="form-error" style="color:red; margin-top:10px;"></div>
+
+      <button type="submit">Pošalji</button>
+    </form>
+  </div>
+</div>
+
+  
+<script>
+  let selectedImage = "";
+
+  document.querySelectorAll(".select-button").forEach(button => {
+    button.addEventListener("click", () => {
+      selectedImage = button.getAttribute("data-filename");
+      document.getElementById("slika").value = selectedImage;
+      document.getElementById("form-error").innerText = "";
+      document.getElementById("modal").style.display = "block";
+    });
+  });
+
+  function closeModal() {
+    document.getElementById("modal").style.display = "none";
+  }
+
+  document.getElementById("submit-form").addEventListener("submit", function(e) {
+    e.preventDefault();
+    const ime = document.getElementById("ime").value.trim();
+    const indeks = document.getElementById("indeks").value.trim();
+    const imejl = document.getElementById("imejl").value.trim();
+    const slika = document.getElementById("slika").value;
+
+    if (!imejl.endsWith("@gs.viser.edu.rs") && !imejl.endsWith("@viser.edu.rs")) {
+      document.getElementById("form-error").innerText = "Prijava zadatka moguća je korišćenjem zvaničnog imejla.";
+      return;
+    }
+
+    // Ovde ide slanje ka Apps Script (placeholder)
+    alert("Podaci bi bili poslati za sliku: " + slika + "\nIme: " + ime + "\nIndeks: " + indeks + "\nImejl: " + imejl);
+    closeModal();
+  });
+</script>
+
+</body>
+</html>
