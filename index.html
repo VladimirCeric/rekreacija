@@ -381,8 +381,8 @@
 <script>
   let selectedImage = "";
 
-  document.querySelectorAll(".select-button").forEach(button => {
-    button.addEventListener("click", () => {
+  document.querySelectorAll(".select-button").forEach(function(button) {
+    button.addEventListener("click", function() {
       selectedImage = button.getAttribute("data-filename");
       document.getElementById("slika").value = selectedImage;
       document.getElementById("form-error").innerText = "";
@@ -394,7 +394,7 @@
     document.getElementById("modal").style.display = "none";
   }
 
-  document.getElementById("submit-form").addEventListener("submit", function(e) {
+  document.getElementById("submit-form").addEventListener("submit", async function(e) {
     e.preventDefault();
     const ime = document.getElementById("ime").value.trim();
     const indeks = document.getElementById("indeks").value.trim();
@@ -406,9 +406,25 @@
       return;
     }
 
-    // Ovde ide slanje ka Apps Script (placeholder)
-    alert("Podaci bi bili poslati za sliku: " + slika + "\nIme: " + ime + "\nIndeks: " + indeks + "\nImejl: " + imejl);
-    closeModal();
+    try {
+      const response = await fetch("https://script.google.com/macros/s/AKfycbx9PUAyyC2F5e_GjHJcbCHIgv8QXvMs6MkKDkAzh13n1MDQOHB0LMVLvbKt7DeF-yw/exec", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ ime, indeks, imejl, slika })
+      });
+      const result = await response.json();
+
+      if (result.status === "success") {
+        alert("Prijava je uspešna. Potvrda je poslata na imejl.");
+        closeModal();
+      } else {
+        document.getElementById("form-error").innerText = result.message;
+      }
+    } catch (error) {
+      document.getElementById("form-error").innerText = "Greška u komunikaciji. Pokušaj ponovo.";
+    }
   });
 </script>
 
