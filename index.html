@@ -364,7 +364,7 @@
         const status = card.querySelector(".availability");
 
         const broj = prijave[filename] || 0;
-        const preostalo = Math.max(0, 3 - broj);
+        const preostalo = Math.max(0, 2 - broj);
 
         status.textContent = "Preostalo: " + preostalo;
         if (preostalo === 0) {
